@@ -26,6 +26,10 @@ namespace sockets
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wconversion"
 #pragma GCC diagnostic ignored "-Wold-style-cast"
+
+// 网络字节序是大端 主机字节序是小端
+// 网络传输先传输高字节
+// 主机存储先存储低字节
 inline uint64_t hostToNetwork64(uint64_t host64)
 {
   return htobe64(host64);

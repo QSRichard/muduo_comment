@@ -11,8 +11,8 @@
 #ifndef MUDUO_NET_CHANNEL_H
 #define MUDUO_NET_CHANNEL_H
 
-#include "muduo/base/noncopyable.h"
-#include "muduo/base/Timestamp.h"
+#include "../base/noncopyable.h"
+#include "../base/Timestamp.h"
 
 #include <functional>
 #include <memory>
@@ -101,6 +101,7 @@ class Channel : noncopyable
   bool tied_;
   bool eventHandling_;
   bool addedToLoop_;
+  
   ReadEventCallback readCallback_;
   EventCallback writeCallback_;
   EventCallback closeCallback_;

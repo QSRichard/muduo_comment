@@ -11,8 +11,8 @@
 #ifndef MUDUO_NET_TCPCLIENT_H
 #define MUDUO_NET_TCPCLIENT_H
 
-#include "muduo/base/Mutex.h"
-#include "muduo/net/TcpConnection.h"
+#include "../base/Mutex.h"
+#include "TcpConnection.h"
 
 namespace muduo
 {

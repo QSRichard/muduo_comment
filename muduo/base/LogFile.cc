@@ -3,10 +3,10 @@
 //
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/base/LogFile.h"
+#include "LogFile.h"
 
-#include "muduo/base/FileUtil.h"
-#include "muduo/base/ProcessInfo.h"
+#include "FileUtil.h"
+#include "ProcessInfo.h"
 
 #include <assert.h>
 #include <stdio.h>

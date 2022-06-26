@@ -6,10 +6,10 @@
 
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/net/EventLoopThreadPool.h"
+#include "EventLoopThreadPool.h"
 
-#include "muduo/net/EventLoop.h"
-#include "muduo/net/EventLoopThread.h"
+#include "EventLoop.h"
+#include "EventLoopThread.h"
 
 #include <stdio.h>
 
@@ -30,6 +30,7 @@ EventLoopThreadPool::~EventLoopThreadPool()
   // Don't delete loop, it's stack variable
 }
 
+// 在EventLoopThreadPoll 的start函数中才实际创建Thread对象
 void EventLoopThreadPool::start(const ThreadInitCallback& cb)
 {
   assert(!started_);

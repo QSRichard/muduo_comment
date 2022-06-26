@@ -6,11 +6,11 @@
 
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/net/InetAddress.h"
+#include "InetAddress.h"
 
-#include "muduo/base/Logging.h"
-#include "muduo/net/Endian.h"
-#include "muduo/net/SocketsOps.h"
+#include "../base/Logging.h"
+#include "Endian.h"
+#include "SocketsOps.h"
 
 #include <netdb.h>
 #include <netinet/in.h>

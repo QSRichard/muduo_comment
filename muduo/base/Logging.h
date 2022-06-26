@@ -6,8 +6,8 @@
 #ifndef MUDUO_BASE_LOGGING_H
 #define MUDUO_BASE_LOGGING_H
 
-#include "muduo/base/LogStream.h"
-#include "muduo/base/Timestamp.h"
+#include "LogStream.h"
+#include "Timestamp.h"
 
 namespace muduo
 {
@@ -37,6 +37,7 @@ class Logger
       : data_(arr),
         size_(N-1)
     {
+      // 搜索最后一次出现 '/' 字符的位置
       const char* slash = strrchr(data_, '/'); // builtin function
       if (slash)
       {

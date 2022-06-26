@@ -6,8 +6,8 @@
 #ifndef MUDUO_BASE_MUTEX_H
 #define MUDUO_BASE_MUTEX_H
 
-#include "muduo/base/CurrentThread.h"
-#include "muduo/base/noncopyable.h"
+#include "CurrentThread.h"
+#include "noncopyable.h"
 #include <assert.h>
 #include <pthread.h>
 
@@ -23,7 +23,7 @@
 #endif
 
 #define CAPABILITY(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(capability(x))
+  THREAD_ANNOTATION_ATTRIBUTE__(capability(x))      
 
 #define SCOPED_CAPABILITY \
   THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable)
@@ -93,12 +93,14 @@ extern void __assert_perror_fail (int errnum,
 __END_DECLS
 #endif
 
+// ret 大概率为 0（此时不需要执行__assert_perror_fail） __builtin_expect是一个编译器优化的宏
 #define MCHECK(ret) ({ __typeof__ (ret) errnum = (ret);         \
                        if (__builtin_expect(errnum != 0, 0))    \
                          __assert_perror_fail (errnum, __FILE__, __LINE__, __func__);})
 
 #else  // CHECK_PTHREAD_RETURN_VALUE
 
+// ret 不为0 报错 
 #define MCHECK(ret) ({ __typeof__ (ret) errnum = (ret);         \
                        assert(errnum == 0); (void) errnum;})
 

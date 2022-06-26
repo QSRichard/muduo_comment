@@ -6,7 +6,7 @@
 #ifndef MUDUO_BASE_CURRENTTHREAD_H
 #define MUDUO_BASE_CURRENTTHREAD_H
 
-#include "muduo/base/Types.h"
+#include "Types.h"
 
 namespace muduo
 {
@@ -16,9 +16,13 @@ namespace CurrentThread
   extern __thread int t_cachedTid;
   extern __thread char t_tidString[32];
   extern __thread int t_tidStringLength;
-  extern __thread const char* t_threadName;
+  extern __thread const char *t_threadName;
+
+  // cacheTid 在Thread.cc 中定义
   void cacheTid();
 
+
+  // tid 返回的是线程的真实id　全局唯一
   inline int tid()
   {
     if (__builtin_expect(t_cachedTid == 0, 0))

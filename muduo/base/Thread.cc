@@ -3,10 +3,10 @@
 //
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/base/Thread.h"
-#include "muduo/base/CurrentThread.h"
-#include "muduo/base/Exception.h"
-#include "muduo/base/Logging.h"
+#include "Thread.h"
+#include "CurrentThread.h"
+#include "Exception.h"
+#include "Logging.h"
 
 #include <type_traits>
 
@@ -25,6 +25,7 @@ namespace detail
 
 pid_t gettid()
 {
+  // syscall(SYS_gettid) 返回的是线程的pid 全局唯一
   return static_cast<pid_t>(::syscall(SYS_gettid));
 }
 
@@ -72,6 +73,7 @@ struct ThreadData
     *tid_ = muduo::CurrentThread::tid();
     tid_ = NULL;
     latch_->countDown();
+    // WHY 
     latch_ = NULL;
 
     muduo::CurrentThread::t_threadName = name_.empty() ? "muduoThread" : name_.c_str();
@@ -115,6 +117,8 @@ void* startThread(void* obj)
 
 }  // namespace detail
 
+
+// 定义cacheTid
 void CurrentThread::cacheTid()
 {
   if (t_cachedTid == 0)
@@ -126,6 +130,7 @@ void CurrentThread::cacheTid()
 
 bool CurrentThread::isMainThread()
 {
+  // getpid 返回进程的pid 全局唯一
   return tid() == ::getpid();
 }
 
@@ -184,6 +189,9 @@ void Thread::start()
   }
   else
   {
+    // FIXME
+    // pthread_create -> startThread -> runInThread -> latch=NULL
+    // 这里不会出错吗？
     latch_.wait();
     assert(tid_ > 0);
   }

@@ -6,12 +6,13 @@
 #ifndef MUDUO_BASE_EXCEPTION_H
 #define MUDUO_BASE_EXCEPTION_H
 
-#include "muduo/base/Types.h"
+#include "Types.h"
 #include <exception>
 
 namespace muduo
 {
 
+// Exception 包含一个 what 以及一个stackTrach 信息
 class Exception : public std::exception
 {
  public:

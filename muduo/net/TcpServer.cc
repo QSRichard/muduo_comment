@@ -6,13 +6,13 @@
 
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/net/TcpServer.h"
+#include "TcpServer.h"
 
-#include "muduo/base/Logging.h"
-#include "muduo/net/Acceptor.h"
-#include "muduo/net/EventLoop.h"
-#include "muduo/net/EventLoopThreadPool.h"
-#include "muduo/net/SocketsOps.h"
+#include "../base/Logging.h"
+#include "Acceptor.h"
+#include "EventLoop.h"
+#include "EventLoopThreadPool.h"
+#include "SocketsOps.h"
 
 #include <stdio.h>  // snprintf
 
@@ -63,6 +63,7 @@ void TcpServer::start()
     threadPool_->start(threadInitCallback_);
 
     assert(!acceptor_->listening());
+    // 开始监听
     loop_->runInLoop(
         std::bind(&Acceptor::listen, get_pointer(acceptor_)));
   }
@@ -94,6 +95,8 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
   conn->setWriteCompleteCallback(writeCompleteCallback_);
   conn->setCloseCallback(
       std::bind(&TcpServer::removeConnection, this, _1)); // FIXME: unsafe
+                                                          // 
+  // connectEstablished 设置connection状态 处理与connection相关的channel
   ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 

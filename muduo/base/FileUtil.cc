@@ -3,8 +3,8 @@
 //
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/base/FileUtil.h"
-#include "muduo/base/Logging.h"
+#include "FileUtil.h"
+#include "Logging.h"
 
 #include <assert.h>
 #include <errno.h>

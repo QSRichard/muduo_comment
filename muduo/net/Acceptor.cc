@@ -6,12 +6,12 @@
 
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/net/Acceptor.h"
+#include "Acceptor.h"
 
-#include "muduo/base/Logging.h"
-#include "muduo/net/EventLoop.h"
-#include "muduo/net/InetAddress.h"
-#include "muduo/net/SocketsOps.h"
+#include "../base/Logging.h"
+#include "EventLoop.h"
+#include "InetAddress.h"
+#include "SocketsOps.h"
 
 #include <errno.h>
 #include <fcntl.h>

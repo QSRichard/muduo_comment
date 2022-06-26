@@ -6,9 +6,9 @@
 #ifndef MUDUO_BASE_THREAD_H
 #define MUDUO_BASE_THREAD_H
 
-#include "muduo/base/Atomic.h"
-#include "muduo/base/CountDownLatch.h"
-#include "muduo/base/Types.h"
+#include "Atomic.h"
+#include "CountDownLatch.h"
+#include "Types.h"
 
 #include <functional>
 #include <memory>
@@ -39,6 +39,10 @@ class Thread : noncopyable
  private:
   void setDefaultName();
 
+
+  // pthread_t 是POSIX线程定义的线程id 只在进程内不同
+  // pit_t 通过 gettid返回的是进程的id 全局唯一
+  // pid_t 通过 syscall(SYS_gettid)返回的是线程的id 全局唯一
   bool       started_;
   bool       joined_;
   pthread_t  pthreadId_;

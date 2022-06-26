@@ -6,7 +6,7 @@
 #ifndef MUDUO_BASE_THREADLOCALSINGLETON_H
 #define MUDUO_BASE_THREADLOCALSINGLETON_H
 
-#include "muduo/base/noncopyable.h"
+#include "noncopyable.h"
 
 #include <assert.h>
 #include <pthread.h>
@@ -14,7 +14,9 @@
 namespace muduo
 {
 
-template<typename T>
+template <typename T>
+
+// ThreadLocalSingleton 的构造函数和析构函数都删除
 class ThreadLocalSingleton : noncopyable
 {
  public:

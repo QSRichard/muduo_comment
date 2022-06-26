@@ -14,8 +14,8 @@
 #include <map>
 #include <vector>
 
-#include "muduo/base/Timestamp.h"
-#include "muduo/net/EventLoop.h"
+#include "../base/Timestamp.h"
+#include "EventLoop.h"
 
 namespace muduo
 {

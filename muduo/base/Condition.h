@@ -6,7 +6,7 @@
 #ifndef MUDUO_BASE_CONDITION_H
 #define MUDUO_BASE_CONDITION_H
 
-#include "muduo/base/Mutex.h"
+#include "Mutex.h"
 
 #include <pthread.h>
 
@@ -30,6 +30,8 @@ class Condition : noncopyable
   void wait()
   {
     MutexLock::UnassignGuard ug(mutex_);
+    //                
+    // 加锁，判断条件（为假）解锁，阻塞
     MCHECK(pthread_cond_wait(&pcond_, mutex_.getPthreadMutex()));
   }
 

@@ -6,14 +6,14 @@
 
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include "muduo/net/TcpConnection.h"
+#include "TcpConnection.h"
 
-#include "muduo/base/Logging.h"
-#include "muduo/base/WeakCallback.h"
-#include "muduo/net/Channel.h"
-#include "muduo/net/EventLoop.h"
-#include "muduo/net/Socket.h"
-#include "muduo/net/SocketsOps.h"
+#include "../base/Logging.h"
+#include "../base/WeakCallback.h"
+#include "Channel.h"
+#include "EventLoop.h"
+#include "Socket.h"
+#include "SocketsOps.h"
 
 #include <errno.h>
 
@@ -325,6 +325,8 @@ void TcpConnection::connectEstablished()
   loop_->assertInLoopThread();
   assert(state_ == kConnecting);
   setState(kConnected);
+  // tie() 将在channel中保存一个weak_ptr
+  // 在此即保存一个TcpConnection的一个weak_ptr
   channel_->tie(shared_from_this());
   channel_->enableReading();
 
@@ -368,6 +370,7 @@ void TcpConnection::handleRead(Timestamp receiveTime)
 void TcpConnection::handleWrite()
 {
   loop_->assertInLoopThread();
+  // channel 关注写事件
   if (channel_->isWriting())
   {
     ssize_t n = sockets::write(channel_->fd(),
@@ -376,6 +379,7 @@ void TcpConnection::handleWrite()
     if (n > 0)
     {
       outputBuffer_.retrieve(n);
+      // 用户缓冲区数据已经写完 
       if (outputBuffer_.readableBytes() == 0)
       {
         channel_->disableWriting();

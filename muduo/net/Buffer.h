@@ -11,11 +11,11 @@
 #ifndef MUDUO_NET_BUFFER_H
 #define MUDUO_NET_BUFFER_H
 
-#include "muduo/base/copyable.h"
-#include "muduo/base/StringPiece.h"
-#include "muduo/base/Types.h"
+#include "../base/copyable.h"
+#include "../base/StringPiece.h"
+#include "../base/Types.h"
 
-#include "muduo/net/Endian.h"
+#include "Endian.h"
 
 #include <algorithm>
 #include <vector>
@@ -354,6 +354,7 @@ class Buffer : public muduo::copyable
   void prepend(const void* /*restrict*/ data, size_t len)
   {
     assert(len <= prependableBytes());
+    // 先将 readerIndex 减少len
     readerIndex_ -= len;
     const char* d = static_cast<const char*>(data);
     std::copy(d, d+len, begin()+readerIndex_);

@@ -10,12 +10,12 @@
 #define __STDC_LIMIT_MACROS
 #endif
 
-#include "muduo/net/TimerQueue.h"
+#include "TimerQueue.h"
 
-#include "muduo/base/Logging.h"
-#include "muduo/net/EventLoop.h"
-#include "muduo/net/Timer.h"
-#include "muduo/net/TimerId.h"
+#include "../base/Logging.h"
+#include "EventLoop.h"
+#include "Timer.h"
+#include "TimerId.h"
 
 #include <sys/timerfd.h>
 #include <unistd.h>
@@ -38,6 +38,8 @@ int createTimerfd()
   return timerfd;
 }
 
+
+// 从now到when花费的时间
 struct timespec howMuchTimeFromNow(Timestamp when)
 {
   int64_t microseconds = when.microSecondsSinceEpoch()
@@ -180,6 +182,7 @@ void TimerQueue::handleRead()
   reset(expired, now);
 }
 
+// getExpired 之后会删除 activeTimers中与timers_中的定时器
 std::vector<TimerQueue::Entry> TimerQueue::getExpired(Timestamp now)
 {
   assert(timers_.size() == activeTimers_.size());
